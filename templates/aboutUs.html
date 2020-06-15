@@ -1,0 +1,51 @@
+{% extends "layout1.html" %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{% block head %}
+
+<style type="text/css">
+    .container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+  .stilim
+   {
+      margin-right: 50px;
+      margin-left: 50px;
+      margin-top: 150px;
+   }
+</style>
+ {% endblock %}
+  
+  </head>
+
+ {% block content %}
+<div class="container">
+    <div class="card align-items-center stilim" style="width: 20rem;">
+        <img class="card-img-top" src="../assets/img/faces/face-6.jpg" alt="Card image cap">
+        <div class="card-block text-center">
+            <h4 class="card-title">Gözde Işıldak</h4>
+            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        </div>
+    
+    </div>
+        <div class="card align-items-center stilim" style="width: 20rem;">
+        <img class="card-img-top" src="../assets/img/faces/face-6.jpg" alt="Card image cap">
+        <div class="card-block text-center">
+            <h4 class="card-title">Seray Esen</h4>
+            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        </div>
+     
+    </div>
+</div>
+{% endblock %}
+
+
+</html>

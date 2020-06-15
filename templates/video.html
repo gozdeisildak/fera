@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+<html>
+  <head>
+    <title>Face expression recognition</title>
+  </head>
+  <body>
+  	  {% block content %}
+    <img id="bg" width=1200px height=900px src="{{ url_for('video_feed') }}">
+    {% endblock %}
+  </body>
+</html>

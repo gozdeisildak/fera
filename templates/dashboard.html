@@ -1,0 +1,215 @@
+{% extends "layout.html" %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+{% block head %}
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+
+<style type="text/css">
+
+  .stilim
+   {
+     
+      margin-left: 20px;
+      margin-right: 50px;
+      margin-bottom: 20px;
+   }
+    </style>
+ {% endblock %}
+</head>
+
+
+<body>
+   
+             {% block content %}
+                <div class="container-fluid">
+                    <div class="row">
+                       <form method="POST" action="">
+                        <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                           <input type="date" name="date1" class="form-control stilim" 
+                               format="dd/mm/yyyy" placeholder="DD-MM-YYYY" style="margin-left: :7px" required>
+                            <input type="date" name="date2" class="stilim form-control" 
+                               format="dd/mm/yyyy" placeholder="DD-MM-YYYY" required>
+                            <input type="submit" value="Search" class="stilim">
+                          </div>
+
+                        </form>
+                    </div>
+                       
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card ">
+                                <div class="card-header ">
+                                    <h4 class="card-title">Pie Chart</h4>
+                                </div>
+                                <div class="card-body ">
+                                   <canvas id="piechart" class="ct-chart ct-perfect-fourth" width="450" height="250"></canvas>
+                                      <script>
+                                         var pieData = [
+                                             {% for item, label, colors in set %}
+                                                 {
+                                                   value: {{item}},
+                                                   label: "{{label}}",
+                                                   color : "{{colors}}"
+                                                 },
+                                             {% endfor %}
+                                         ];
+
+                                        // get bar chart canvas
+                                        var mychart = document.getElementById("piechart").getContext("2d");
+                                        steps = 10
+                                        max = {{ max }}
+
+                                        // draw pie chart
+                                        new Chart(document.getElementById("piechart").getContext("2d")).Pie(pieData);
+
+                                     </script>
+                                  
+                                    <hr>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card ">
+                                <div class="card-header ">
+                                    <h4 class="card-title">Bar Chart</h4>
+                                    <p class="card-category">24 Hours performance</p>
+                                </div>
+                                <div class="card-body ">
+                                     <canvas id="barchart" class="ct-chart" width="600" height="400"></canvas>
+                                         <script>
+                                           // bar chart data
+                                           var barData = {
+                                             labels : [
+                                               {% for item in labels %}
+                                                "{{ item }}",
+                                               {% endfor %}
+                                         ],
+
+                                             datasets : [{
+                                               fillColor: "rgba(151,187,205,0.2)",
+                                               strokeColor: "rgba(151,187,205,1)",
+                                               pointColor: "rgba(151,187,205,1)",
+                                               data : [
+                                                 {% for item in values %}
+                                                    "{{ item }}",
+                                                   {% endfor %}
+                                             ]
+                                               }
+                                             ]
+                                           }
+
+                                          // get bar chart canvas
+                                          var mychart = document.getElementById("barchart").getContext("2d");
+
+                                            steps = 10
+                                            max = {{max}}
+
+                                          // draw bar chart
+                                          new Chart(mychart).Bar(barData, {
+                                            scaleOverride: true,
+                                            scaleSteps: steps,
+                                            scaleStepWidth: Math.ceil(max / steps),
+                                            scaleStartValue: 0,
+                                            scaleShowVerticalLines: true,
+                                            scaleShowGridLines : true,
+                                            barShowStroke : true,
+                                            scaleShowLabels: true
+                                            }
+                                          );
+
+                                         </script>
+                                </div>
+                                <div class="card-footer ">
+                                    
+                                    <hr>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card ">
+                                <div class="card-header ">
+                                    <h4 class="card-title">Line Chart</h4>
+                                </div>
+                                <div class="card-body ">
+                                        <canvas id="chart" class="ct-chart" width="300" height="100"></canvas>
+                                            <script>
+
+                                            // bar chart data
+                                             var barData = {
+                                                labels : [
+                                                  {% for item in labels %}
+                                                     "{{ item }}",
+                                                   {% endfor %}
+                                                 ],
+
+                                                 datasets : [{
+                                                   fillColor: "rgba(151,187,205,0.2)",
+                                                   strokeColor: "rgba(151,187,205,1)",
+                                                   pointColor: "rgba(151,187,205,1)",
+                                                   pointStrokeColor: "#fff",
+                                                   pointHighlightFill: "#fff",
+                                                   pointHighlightStroke: "rgba(151,187,205,1)",
+                                                   bezierCurve : false,
+                                                   data : [
+                                                 {% for item in values %}
+                                                       {{ item }},
+                                                     {% endfor %}]
+                                                   }
+                                             ]
+                                               }
+
+                                               Chart.defaults.global.animationSteps = 50;
+                                               Chart.defaults.global.tooltipYPadding = 16;
+                                               Chart.defaults.global.tooltipCornerRadius = 0;
+                                               Chart.defaults.global.tooltipTitleFontStyle = "normal";
+                                               Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+                                               Chart.defaults.global.animationEasing = "easeOutBounce";
+                                               Chart.defaults.global.responsive = false;
+                                               Chart.defaults.global.scaleLineColor = "black";
+                                               Chart.defaults.global.scaleFontSize = 16;
+
+                                               // get bar chart canvas
+                                               var mychart = document.getElementById("chart").getContext("2d");
+
+                                               steps = 10
+                                               max = {{ max }}
+                                               // draw bar chart
+                                               var LineChartDemo = new Chart(mychart).Line(barData, {
+                                                 scaleOverride: true,
+                                                 scaleSteps: steps,
+                                                 scaleStepWidth: Math.ceil(max / steps),
+                                                 scaleStartValue: 0,
+                                                 scaleShowVerticalLines: true,
+                                                 scaleShowGridLines : true,
+                                                 barShowStroke : true,
+                                                 scaleShowLabels: true,
+                                                 bezierCurve: false,
+                                               });
+
+                                             </script>
+                                </div>
+                                <div class="card-footer ">
+                                  
+                                    <hr>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            {% endblock %}
+
+   
+</body>
+
+
+</html>
