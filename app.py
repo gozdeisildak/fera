@@ -27,5 +27,20 @@ def hello_world():
 def aboutUs():
     return render_template("tutorial-components.html")
 
+@app.route("/upload/", methods=["GET", "POST"])
+def upload():
+    if request.method == "POST":
+        if request.files:
+            # read image file string data
+            filestr = request.files['image'].read()
+            # convert string data to numpy array
+            npimg = np.fromstring(filestr, np.uint8)
+            # convert numpy array to image
+            img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
+            uri = upld.get_image(img)
+            return render_template("upload.html", image=uri)
+    flash("test")
+    return render_template("upload.html")
+
 if __name__ == '__main__':
     app.run()
