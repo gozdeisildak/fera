@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request, session, Response
-from cv2 import *
+import cv2
 
 
 app = Flask(__name__)
