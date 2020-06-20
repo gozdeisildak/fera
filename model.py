@@ -12,8 +12,8 @@ class FacialExpressionModel(object):
 
     def __init__(self):
         global model, graph
-        self.sess = tf.Session()
-        graph = tf.get_default_graph()
+        self.sess = tf.compat.v1.Session()
+        graph = tf.compat.v1.get_default_graph()
         # IMPORTANT: models have to be loaded AFTER SETTING THE SESSION for keras!
         # Otherwise, their weights will be unavailable in the threads after the session there has been set
         set_session(self.sess)
